@@ -27,7 +27,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       on<AddTaskEvent>(_addTasks);
       on<DeleteTaskEvent>(_deleteTasks);
       on<ChangeIndexEvent>(_changeIndex);
-      on<ChangeTaskStatusEvent>(_changeTaskStatus);
+      on<UpdateTaskEvent>(_changeTaskStatus);
     }
   }
 
@@ -108,7 +108,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   FutureOr<void> _changeTaskStatus(
-      ChangeTaskStatusEvent event, Emitter<TaskState> emit) async {
+      UpdateTaskEvent event, Emitter<TaskState> emit) async {
     updateTaskUseCase(event.id, event.taskModel);
     emit(state.copyWith());
   }

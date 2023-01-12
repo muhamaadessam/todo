@@ -53,11 +53,11 @@ class ChangeIndexEvent extends TaskEvent {
   List<Object> get props => [currentIndex];
 }
 
-class ChangeTaskStatusEvent extends TaskEvent {
+class UpdateTaskEvent extends TaskEvent {
   final TaskModel taskModel;
   final int id;
 
-  const ChangeTaskStatusEvent({
+  const UpdateTaskEvent({
     required this.taskModel,
     required this.id,
   });
