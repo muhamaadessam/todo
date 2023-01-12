@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/presentation/components/text_form_field.dart';
-import '../../core/theme/text_styel.dart';
+import '../../core/theme/text_style.dart';
 import '../../data/models/tasks_model.dart';
 import '../controller/task_bloc.dart';
 import '../controller/task_event.dart';
@@ -95,7 +96,7 @@ class TaskItemBuilder extends StatelessWidget {
                                     ),
                                     CustomTextFormField(
                                       controller: timeController,
-                                      type: TextInputType.text,
+                                      type: TextInputType.none,
                                       label: 'Time',
                                       prefix: Icons.watch_later_outlined,
                                       validate: (value) {
@@ -105,27 +106,43 @@ class TaskItemBuilder extends StatelessWidget {
                                           return null;
                                         }
                                       },
+                                      onTap: () {
+                                        showTimePicker(
+                                            context: context, initialTime: TimeOfDay.now())
+                                            .then((value) =>
+                                        {timeController.text = value!.format(context)});
+                                      },
                                     ),
                                     const SizedBox(
                                       height: 16,
                                     ),
                                     CustomTextFormField(
-                                      controller: dateController,
-                                      type: TextInputType.text,
-                                      label: 'date',
-                                      prefix: Icons.date_range,
-                                      validate: (value) {
-                                        if (value!.isEmpty) {
-                                          return "Date must be not empty";
-                                        } else {
-                                          return null;
-                                        }
-                                      },
-                                    ),
+                                        controller: dateController,
+                                        type: TextInputType.none,
+                                        label: 'date',
+                                        prefix: Icons.date_range,
+                                        validate: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Date must be not empty";
+                                          } else {
+                                            return null;
+                                          }
+                                        },
+                                        onTap: () {
+                                          showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime.now(),
+                                            firstDate: DateTime.now(),
+                                            lastDate: DateTime.utc(2030),
+                                          ).then((value) => {
+                                            dateController.text =
+                                                DateFormat.yMMMd().format(value!)
+                                          });
+                                        }),
                                   ],
                                 ),
                                 actions: [
-                                  TextButton(
+                                  ElevatedButton(
                                     child: const Text('Update'),
                                     onPressed: () {
                                       if (formKey.currentState!.validate()) {
@@ -149,7 +166,7 @@ class TaskItemBuilder extends StatelessWidget {
                                       }
                                     },
                                   ),
-                                  TextButton(
+                                  ElevatedButton(
                                     child: const Text('Cancel'),
                                     onPressed: () {
                                       Navigator.of(context).pop();

@@ -23,13 +23,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'To Do',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
+        ),
       ),
-      darkTheme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      themeMode: ThemeMode.light,
       home: BlocProvider(
         create: (context) => sl<TaskBloc>()
           ..add(const GetRunTasksEvent('new'))

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  CustomTextFormField({
-    Key? key,
-    required this.controller,
-    required this.type,
-    required this.label,
-    required this.prefix,
-    required this.validate,
-    this.onChange,
-    this.onSubmit,
-    this.onTap
-  }) : super(key: key);
+  CustomTextFormField(
+      {Key? key,
+      required this.controller,
+      required this.type,
+      required this.label,
+      required this.prefix,
+      required this.validate,
+      this.onChange,
+      this.onSubmit,
+      this.onTap})
+      : super(key: key);
   final TextEditingController controller;
   final TextInputType type;
   final String label;
@@ -29,9 +29,10 @@ class CustomTextFormField extends StatelessWidget {
       onFieldSubmitted: onSubmit,
       onChanged: onChange,
       decoration: InputDecoration(
-          label: Text(label),
-          prefixIcon: Icon(prefix),
-          border: const OutlineInputBorder()),
+        label: Text(label),
+        prefixIcon: Icon(prefix),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+      ),
       validator: validate,
       onTap: onTap,
     );

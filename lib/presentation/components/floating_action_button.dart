@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/presentation/components/text_form_field.dart';
 import 'package:todo_app/presentation/controller/task_bloc.dart';
-
 import '../../data/models/tasks_model.dart';
 import '../controller/task_event.dart';
 
@@ -88,12 +87,15 @@ class FloatButton extends StatelessWidget {
                             initialDate: DateTime.now(),
                             firstDate: DateTime.now(),
                             lastDate: DateTime.utc(2030),
-                          ).then((value) => {dateController.text = DateFormat.yMMMd().format(value!)});
+                          ).then((value) => {
+                                dateController.text =
+                                    DateFormat.yMMMd().format(value!)
+                              });
                         }),
                   ],
                 ),
                 actions: [
-                  TextButton(
+                  ElevatedButton(
                     child: const Text('Add'),
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
@@ -112,11 +114,13 @@ class FloatButton extends StatelessWidget {
                       }
                     },
                   ),
-                  TextButton(
-                    child: const Text('Cancel'),
+
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
+                    child: const Text('Cancel'),
+
                   ),
                 ],
               ),
