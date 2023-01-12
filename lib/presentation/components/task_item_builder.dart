@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/presentation/components/text_form_field.dart';
 import '../../core/theme/text_style.dart';
@@ -64,9 +65,9 @@ class TaskItemBuilder extends StatelessWidget {
                   ? Container()
                   : InkWell(
                       onTap: () {
-                        timeController.text=state[index]['time'];
-                        dateController.text=state[index]['date'];
-                        titleController.text=state[index]['title'];
+                        timeController.text = state[index]['time'];
+                        dateController.text = state[index]['date'];
+                        titleController.text = state[index]['title'];
                         showDialog(
                           context: context,
                           barrierDismissible: false, // user must tap button!
@@ -108,9 +109,12 @@ class TaskItemBuilder extends StatelessWidget {
                                       },
                                       onTap: () {
                                         showTimePicker(
-                                            context: context, initialTime: TimeOfDay.now())
-                                            .then((value) =>
-                                        {timeController.text = value!.format(context)});
+                                                context: context,
+                                                initialTime: TimeOfDay.now())
+                                            .then((value) => {
+                                                  timeController.text =
+                                                      value!.format(context)
+                                                });
                                       },
                                     ),
                                     const SizedBox(
@@ -135,9 +139,10 @@ class TaskItemBuilder extends StatelessWidget {
                                             firstDate: DateTime.now(),
                                             lastDate: DateTime.utc(2030),
                                           ).then((value) => {
-                                            dateController.text =
-                                                DateFormat.yMMMd().format(value!)
-                                          });
+                                                dateController.text =
+                                                    DateFormat.yMMMd()
+                                                        .format(value!)
+                                              });
                                         }),
                                   ],
                                 ),
@@ -158,10 +163,16 @@ class TaskItemBuilder extends StatelessWidget {
                                             ),
                                           ),
                                         );
-                                        taskBloc.add(const GetRunTasksEvent('new'));
-                                        taskBloc.add(const GetDoneTasksEvent('done'));
                                         taskBloc
-                                            .add(const GetArchivedTasksEvent('archived'));
+                                            .add(const GetRunTasksEvent('new'));
+                                        taskBloc.add(
+                                            const GetDoneTasksEvent('done'));
+                                        taskBloc.add(
+                                            const GetArchivedTasksEvent(
+                                                'archived'));
+                                        Fluttertoast.showToast(
+                                          msg: 'Task Update',
+                                        );
                                         Navigator.of(context).pop();
                                       }
                                     },
@@ -205,6 +216,12 @@ class TaskItemBuilder extends StatelessWidget {
                             taskBloc.add(const GetDoneTasksEvent('done'));
                             taskBloc
                                 .add(const GetArchivedTasksEvent('archived'));
+                            Fluttertoast.showToast(
+                              msg: 'Task is Done',
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM_LEFT,
+                              backgroundColor: Colors.green,
+                            );
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(4.0),
@@ -237,6 +254,12 @@ class TaskItemBuilder extends StatelessWidget {
                             taskBloc.add(const GetDoneTasksEvent('done'));
                             taskBloc
                                 .add(const GetArchivedTasksEvent('archived'));
+                            Fluttertoast.showToast(
+                              msg: 'Task Archived',
+                              toastLength: Toast.LENGTH_LONG,
+                              gravity: ToastGravity.BOTTOM_LEFT,
+                              backgroundColor: Colors.green,
+                            );
                           },
                           child: const Padding(
                             padding: EdgeInsets.all(4.0),
@@ -255,6 +278,12 @@ class TaskItemBuilder extends StatelessWidget {
                       taskBloc.add(const GetRunTasksEvent('new'));
                       taskBloc.add(const GetDoneTasksEvent('done'));
                       taskBloc.add(const GetArchivedTasksEvent('archived'));
+                      Fluttertoast.showToast(
+                        msg: 'Task Deleted',
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM_LEFT,
+                        backgroundColor: Colors.green,
+                      );
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(4.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/presentation/components/text_form_field.dart';
 import 'package:todo_app/presentation/controller/task_bloc.dart';
@@ -111,6 +112,12 @@ class FloatButton extends StatelessWidget {
                         );
                         taskBloc.add(const GetRunTasksEvent('new'));
                         Navigator.of(context).pop();
+                        Fluttertoast.showToast(
+                          msg: 'Task Added',
+                          toastLength: Toast.LENGTH_LONG,
+                          gravity: ToastGravity.BOTTOM_LEFT,
+                          backgroundColor: Colors.green,
+                        );
                       }
                     },
                   ),
